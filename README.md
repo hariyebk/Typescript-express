@@ -1,0 +1,1 @@
+# This project demonstrates the usage of decorators and TypeScript classes with the Express framework. It showcases how decorators can be used to simplify the process of defining routes, Authorization and middlewares in an Express application.

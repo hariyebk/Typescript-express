@@ -53,23 +53,7 @@ router.get("/logout", (req: Request, res: Response) => {
     `)
 })
 
-router.get("/login", (req: Request, res: Response): void => {
-    res.send(`
-    <form method = "POST">
-        <div>
-            <div>
-                <label> Email: </label>
-                <input name = "email" type = "email"/>
-            </div>
-            <div>
-                <label> Password: </label>
-                <input name = "password" type = "password"/>
-            </div>
-            <button type = "submit"> Submit </button>
-        </div>
-    </form>
-    `)
-})
+
 
 
 router.post("/login", (req: RequestBody, res: Response): void => {

@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import {controller, get} from "./decorators"
 
+// defining routes and their handlers
 @controller("/auth")
 class Login {
     @get("/login")

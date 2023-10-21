@@ -1,11 +1,9 @@
 import { Request, Response } from "express"
-import get  from "./decorators/routes"
-import controller from "./decorators/Controller"
-
+import {controller, get} from "./decorators"
 
 @controller("/auth")
-class LoginRoute{
-    @get("login")
+class Login {
+    @get("/login")
     getLogin(req: Request, res: Response): void{
         res.send(`
         <form method = "POST">
@@ -25,4 +23,3 @@ class LoginRoute{
     }
 }
 
-export default LoginRoute

@@ -23,6 +23,7 @@ function requireAuth(req: Request, res: Response, next: NextFunction): void{
         `)
     }
 }
+
 router.get("/", (req: Request, res: Response) => {
     if(req.session && req.session.loggedIn){
         res.send(`
@@ -41,7 +42,6 @@ router.get("/", (req: Request, res: Response) => {
         `)
     }
 })
-
 router.get("/logout", (req: Request, res: Response) => {
     req.session = undefined
     res.send(`
@@ -52,10 +52,6 @@ router.get("/logout", (req: Request, res: Response) => {
     
     `)
 })
-
-
-
-
 router.post("/login", (req: RequestBody, res: Response): void => {
     const {email, password} = req.body
     const verifyEmail = email === "hi@hi.com"
@@ -80,7 +76,6 @@ router.post("/login", (req: RequestBody, res: Response): void => {
     }
 
 })
-
 router.get("/protected", requireAuth, (req: Request, res: Response) => {
     res.send("Welcome to the protected route loggedin user")
 })

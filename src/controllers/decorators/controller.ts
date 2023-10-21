@@ -5,19 +5,17 @@ import AppRouter from "../../AppRouter"
 export function controller(pathPrefix: string){
     return function(target: Function) {
         const router = AppRouter.approuter
-        console.log(target.prototype)
         // loop over the class prototypes  and find methods with  their metadata
-        for(let key in target.prototype){
+        const methods = Object.getOwnPropertyNames(target.prototype)
+        methods.forEach((methodName: string): void => {
             // route handler method inside the class
-            const routehandler = target.prototype[key]
+            const routehandler = target.prototype[methodName]
             // finding the metadata with a name of path
-            const path = Reflect.getMetadata("path", target.prototype, key)
+            const path = Reflect.getMetadata("path", target.prototype, methodName)
             // if the method is decorated with a path
             if(path){
-                console.log(`${pathPrefix}${path}`)
                 router.get(`${pathPrefix}${path}`, routehandler)
             }
-        }
-        
+        })
     }
 }

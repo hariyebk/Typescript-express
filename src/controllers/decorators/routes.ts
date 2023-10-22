@@ -1,12 +1,12 @@
 import "reflect-metadata"
-import { Methods } from "../Methods"
+import { Methods, Metadata } from "../Enums"
 // decorator factory
 function routeMethods(httpmethod: string){
     return function(path: string){
         return function(target: any, key: string | symbol, des: TypedPropertyDescriptor<any>){
             // setting up the metadata for the decorated method
-            Reflect.defineMetadata("path", path, target, key)
-            Reflect.defineMetadata("method", httpmethod, target, key)
+            Reflect.defineMetadata(Metadata.path, path, target, key)
+            Reflect.defineMetadata(Metadata.method, httpmethod, target, key)
         }
     }
 }

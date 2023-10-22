@@ -37,7 +37,7 @@ router.get("/", (req: Request, res: Response) => {
         res.send(`
             <div>
                 <p> You are not logged in </p>
-                <a href = "/login"> login </a>
+                <a href = "/auth/login"> login </a>
             </div>
         `)
     }
@@ -47,34 +47,10 @@ router.get("/logout", (req: Request, res: Response) => {
     res.send(`
     <div>
         <p> You are logged out !! </p>
-        <a href = "/login"> Login </a>
+        <a href = "/auth/login"> Login </a>
     </div>
     
     `)
-})
-router.post("/login", (req: RequestBody, res: Response): void => {
-    const {email, password} = req.body
-    const verifyEmail = email === "hi@hi.com"
-    const verifyPassword = password === "123"
-    if(email && password && verifyEmail && verifyPassword){
-        // mark the user as logged in
-        req.session = {loggedIn: true}
-        res.redirect("/")
-    }
-    else{
-        if(!email || !password){
-            res.send("Please provide an Email or Password")
-        }
-        else{
-            res.send(`
-            <div>
-                <p> Invalid email or password </p>
-                <a href = "/"> try again </a>
-            </div>
-            `)
-        }
-    }
-
 })
 router.get("/protected", requireAuth, (req: Request, res: Response) => {
     res.send("Welcome to the protected route loggedin user")

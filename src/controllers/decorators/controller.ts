@@ -1,8 +1,8 @@
 import "reflect-metadata"
 import AppRouter from "../../AppRouter"
-import { Methods, Metadata } from "../Enums"
+import { Methods, Metadata } from "../data/Enums"
 import { Request, Response,NextFunction, RequestHandler } from "express"
-import { credentials } from "../../credentials"
+import { credentials } from "../data/credentials"
 
 function Validator(props: string[]){
     // checks if the request body has the required properties (email and password)
@@ -25,8 +25,6 @@ function Validator(props: string[]){
         next()
     }
 }
-
-
 // This decorator factory will associate the routehandler to the router as soon as the class is defined.
 export function controller(pathPrefix: string){
     return function(target: Function) {
@@ -42,11 +40,10 @@ export function controller(pathPrefix: string){
                 const httpmethod: Methods = Reflect.getMetadata(Metadata.method, target.prototype, methodName)
                 const middlewares = Reflect.getMetadata(Metadata.middleware, target.prototype, methodName) || []
                 const bodyProps = Reflect.getMetadata(Metadata.validator, target.prototype, methodName) || []
-                // console.log(bodyProps, middlewares)
                 // if the method is decorated with a path
                 if(path){
+                    // Mounting each routes and thier corresponding handlers to the router
                     router[httpmethod](`${pathPrefix}${path}`, ...middlewares, Validator(bodyProps), routehandler)
-                    // all the middlewares defined in the use decorator will run before the route handeler
                 }
             }
         })

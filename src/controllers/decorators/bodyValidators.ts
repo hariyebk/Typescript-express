@@ -1,5 +1,5 @@
 import "reflect-metadata"
-import { Metadata } from "../Enums"
+import { Metadata } from "../data/Enums"
 
 export function requiredProps(props : string){
     const requiredProps = props.split(",").map((prop: string): string => prop.trimStart().trimEnd())

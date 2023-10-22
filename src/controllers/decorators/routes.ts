@@ -1,5 +1,5 @@
 import "reflect-metadata"
-import { Methods, Metadata } from "../Enums"
+import { Methods, Metadata } from "../data/Enums"
 // decorator factory
 function routeMethods(httpmethod: string){
     return function(path: string){

@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import "reflect-metadata"
-import { Metadata } from "../Enums";
+import { Metadata } from "../data/Enums";
 // factory decorator
 export function Use(middleware: RequestHandler){
     return function(target: any, key: string | symbol){

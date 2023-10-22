@@ -1,13 +1,9 @@
 import { NextFunction, Request, Response } from "express"
 import {controller, get, Use, requiredProps, post} from "./decorators"
-
-
-function Logger(req: Request, res: Response, next: NextFunction): void{
-    next()
-}
+import Logger from "./Middlewares/Logger"
 // defining routes and their handlers
 @controller("/auth")
-class Login {
+class Authentication {
     @get("/login")
     @Use(Logger)
     getLogin(req: Request, res: Response): void{
@@ -27,12 +23,24 @@ class Login {
         </form>
         `)
     }
-    
+
     @post("/login")
     @requiredProps("email, password")
     postLogin(req: Request, res: Response): void{
         req.session = {loggedIn: true}
         res.redirect("/")
+    }
+
+    @get("/logout")
+    getLogout(req: Request, res: Response): void{
+        req.session = undefined
+        res.send(`
+        <div>
+            <p> You are logged out !! </p>
+            <a href = "/auth/login"> Login </a>
+        </div>
+        
+        `)
     }
 }
 
